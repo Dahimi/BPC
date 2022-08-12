@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Classement</title>
+    <link rel="stylesheet" href="{% static 'css/Ranking.css' %}">
+    <link rel = "shortcut icon" href="{% static 'images/Logo_for_title.png' %}" >
+</head>
+<body>
+    <div class="navbar">
+        <img src="{% static 'images/Logo.png' %}" class="logo">
+        <h3 class="title">BOT PROGRAMMING COMPETITION</h3>
+        <h3 class="subtitle">Sustainable developpement through computer sciences</h3>
+        <div id="links">
+            <li><a href="{% url 'home' %}" class="link">Accueil</a></li>
+            <li><a href="{% url 'ranking' %}" class="link">Classement</a></li>
+            <li><a href="{% url 'logout' %}" class="link">Se déconnecter</a></li>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+    <h1>Classement</h1>
+        </header>
+        <div class="wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Classement</th>
+                        <th>Equipe</th>
+                        <th>Score</th>
+                        <th>Problèmes résolus</th>
+                        <th>Nombre de tests</th>
+                        <th>Ecole</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for participant in participants %}
+                    {% if forloop.counter <= pass %}
+                    <tr class="pass">
+                    {% else %}
+                    <tr class="exclu">
+                    {% endif %}
+                        <td class="rank">{{forloop.counter}}</td>
+                        <td class="team">{{participant.Username}}</td>
+                        <td class="score">{{participant.Score}}</td>
+                        <td class="prob">{{participant.Solved_Problems}}</td>
+                        <td class="test">{{participant.Number_Of_Tests}}</td>
+                        <td class="ecole">{{participant.School}}</td>
+                        {% if forloop.counter <= pass %}
+                        <td class="icon"><img src="{% static 'images/tr.png' %}" alt="trophy" width="20px"></td>
+                        {% else %}
+                        <td class="icon"><img src="{% static 'images/ar.png' %}" alt="exclu" width="20px"></td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+<style>
+    .exclu:hover{
+    /*transform: scale(1.06);*/
+    background: #ed0000;
+
+}
+</style>
+</html>

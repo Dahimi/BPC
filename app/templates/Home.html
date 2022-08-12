@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil</title>
+    <link rel="stylesheet"  href="{% static 'css/Home.css' %}">
+    <link rel = "shortcut icon" href="{% static 'images/Logo_for_title.png' %}" >
+</head>
+<body>
+    <div class="navbar">
+        <img src="{% static 'images/Logo.png' %}" class="logo">
+        <h3 class="title">BOT PROGRAMMING COMPETITION</h3>
+        <h3 class="subtitle">Sustainable developpement through computer sciences</h3>
+        <div id="links">
+            <li><a href="{% url 'home' %}" class="link">Accueil</a></li>
+            <li><a href="{% url 'ranking' %}" class="link">Classement</a></li>
+            <li><a href="{% url 'logout' %}" class="link">Se déconnecter</a></li>
+        </div>
+    </div>
+
+    <div class="name-score">
+        <h3 class="name">Bon courage {{participant.Username}}</h3>
+        <h3 class="score">Votre score:{{participant.Score}}</h3>
+    </div>
+
+    <div class="games">
+        {% for game in games%}
+        <div class="game">
+            <img src="{{game.Image.url}}" class="img">
+            <div class="title-score">
+                <h3 class="game-title">{{game.Name}}</h3>
+                <h3 class="score-value">Score:{{game.Score}}</h3>
+                <h3 class="solved">Résolu:</h3>
+                <img src="{% static 'images/yes.png' %}" class="yesorno">
+                <button class="play"><a id="link" href="{% url 'Problem' game.id %}">Jouer</a></button>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+
+
+</body>
+<style>
+    #link{
+    color:white;
+    font-size:20px;
+    font-family:arial;
+    }
+</style>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{game.Name}}</title>
+    <link rel="stylesheet" href="{% static 'css/Game.css' %}">
+    <script src="{% static 'js/ScriptJs.js' %}"></script>
+    <script src="{% static 'js/processing.js' %}"></script>
+    <link rel = "shortcut icon" href="{% static 'images/Logo_for_title.png' %}" >
+</head>
+<body class="body">
+
+    <div class="navbar">
+        <img src="{% static 'images/Logo.png' %}" class="logo">
+        <h3 class="title">BOT PROGRAMMING COMPETITION</h3>
+        <h3 class="subtitle">Sustainable developpement through computer sciences</h3>
+        <div id="links">
+            <li><a href="{% url 'home' %}" class="link">Accueil</a></li>
+            <li><a href="{% url 'ranking' %}" class="link">Classement</a></li>
+            <li><a href="{% url 'logout' %}" class="link">Se déconnecter</a></li>
+        </div>
+    </div>
+
+    <div class="simulation-problem">
+        <canvas id="sketch" data-processing-sources="{% get_static_prefix %}{{ game.Processing_Path }}"></canvas>
+        <img class="problem-image" src="{{game.Statement.url}}">
+    </div>
+    <div class="coding">
+        <div class="info">
+            <h3 id="max-score">SCORE:{{game.Score}}</h3>
+            <h3 id="game-name">{{game.Name}}</h3>
+            <select id="languages" class="languages" onchange="changeLanguage()">
+                {% for ele in options %}
+                {% if ele.0 == advancement.Used_Language %}
+                    <option value="{{ele.0}}" selected="selected"> {{ele.1}} </option>
+                {% else %}
+                    <option value="{{ele.0}}" > {{ele.1}} </option>
+                {% endif %}
+                {% endfor %}
+
+            </select>
+        </div>
+        <div class="editor" id="editor">{{advancement.Wrote_Code}}</div>
+        <div class="test-zone">
+            <div class="Total">
+                <h3 id="score total" style="color:{{advancement.Color}}">SCORE TOTAL:{{advancement.Score}}</h3>
+                <h3 id="pourcentage total" style="color:{{advancement.Color}}">POURCENTAGE:{{advancement.Percentage}}%</h3>
+                <button class="lunch" onclick="LunchTests()">Lancer les tests</button>
+            </div>
+
+             <div class="wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>SCORE</th>
+                        <th>POUCENTAGE</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ele in results %}
+
+                    <tr class="pass">
+                        <td class="rank" id="test{{ele.0}}" style="color:{{ele.3}}; font-weight:bold;">{{ele.0}}</td>
+                        <td class="team" id="score{{ele.0}}" style="color:{{ele.3}}; font-weight:bold;">{{ele.1}}</td>
+                        <td class="score" id="pourcentage{{ele.0}}" style="color:{{ele.3}}; font-weight:bold;">{{ele.2}}</td>
+                    </tr>
+
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+
+        </div>
+    </div>
+
+</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/lib/ace.js' %}"></script>
+    <script src="{% static 'js/lib/theme-monokai.js' %}"></script>
+
+<style>
+    .editor{
+    font-size:16px;
+    }
+</style>
+</html>
