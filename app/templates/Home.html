@@ -27,7 +27,7 @@
     <div class="games">
         {% for game in games%}
         <div class="game">
-            <img src="{{game.Image.url}}" class="img">
+            <img src="/static{{game.Image.url}}" class="img">
             <div class="title-score">
                 <h3 class="game-title">{{game.Name}}</h3>
                 <h3 class="score-value">Score:{{game.Score}}</h3>
