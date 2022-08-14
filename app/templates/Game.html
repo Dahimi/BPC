@@ -24,7 +24,7 @@
 
     <div class="simulation-problem">
         <canvas id="sketch" data-processing-sources="{% get_static_prefix %}{{ game.Processing_Path }}"></canvas>
-        <img class="problem-image" src="{{game.Statement.url}}">
+        <img class="problem-image" src="/static{{game.Statement.url}}">
     </div>
     <div class="coding">
         <div class="info">
